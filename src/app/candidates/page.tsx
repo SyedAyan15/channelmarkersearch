@@ -31,10 +31,10 @@ export default function CandidatesPage() {
         intro="We connect sales professionals with leading companies across the US, and only introduce you to roles that fit your goals."
       >
         <div className="mt-8 flex flex-wrap gap-3">
-          <ButtonLink href="/careers" variant="sky">
+          <ButtonLink href="/careers" variant="primary">
             View Open Roles
           </ButtonLink>
-          <ButtonLink href="#submit" variant="outline-light" arrow={false}>
+          <ButtonLink href="#submit" variant="secondary" arrow={false}>
             Submit Your Resume
           </ButtonLink>
         </div>

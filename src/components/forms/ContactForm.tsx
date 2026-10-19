@@ -8,7 +8,7 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl border border-line bg-white p-10 text-center">
+      <div className="rounded-md border border-line bg-white p-10 text-center">
         <h3 className="text-2xl font-semibold text-ink">Thank you</h3>
         <p className="mt-3 text-body">Your message has been sent. One of our recruiters will be in touch shortly.</p>
         <button onClick={reset} className="mt-6 text-sm font-semibold text-navy underline">
@@ -19,7 +19,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-2xl border border-line bg-white p-6 sm:p-8">
+    <form onSubmit={onSubmit} className="rounded-md border border-line bg-white p-6 sm:p-8">
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={labelClass}>

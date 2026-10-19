@@ -63,7 +63,7 @@ export function Header() {
 
         <Link
           href="/contact"
-          className="group hidden items-center gap-2 rounded-full bg-navy px-6 py-3 text-sm font-semibold text-white transition hover:bg-navy-light lg:inline-flex"
+          className="group hidden items-center gap-2 rounded-md bg-navy px-6 py-3 text-sm font-medium text-white transition hover:bg-navy-light lg:inline-flex"
         >
           Contact Us
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -106,7 +106,7 @@ export function Header() {
           <Link
             href="/contact"
             tabIndex={open ? 0 : -1}
-            className="mt-4 rounded-full bg-navy px-6 py-4 text-center font-semibold text-white"
+            className="mt-4 rounded-md bg-navy px-6 py-4 text-center font-medium text-white"
           >
             Request Sales Talent
           </Link>

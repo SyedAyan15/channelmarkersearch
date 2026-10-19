@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { CtaBand, Mark, PageHero, SectionHeading } from "@/components/ui";
+import { CtaBand, Mark, PageHero, SectionHeading, TextLink } from "@/components/ui";
 import { Reveal } from "@/components/motion";
+import { LocationMap, mapsLink } from "@/components/LocationMap";
 import { pastPlacements, site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -98,29 +99,42 @@ export default function AboutPage() {
       </section>
 
       <section className="py-20 md:py-24">
-        <div className="container-x grid gap-10 md:grid-cols-3">
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-navy">Our location</h3>
-            <p className="mt-3 leading-relaxed text-body">
-              Located in New York, we recruit top sales professionals for a range of industries across the US.
-            </p>
+        <div className="container-x grid items-stretch gap-12 lg:grid-cols-[1fr_1.3fr] lg:gap-16">
+          <div className="flex flex-col">
+            <SectionHeading
+              label="Our location"
+              title={
+                <>
+                  Based in <Mark>New York.</Mark>
+                </>
+              }
+              intro="Located in New York, we recruit top sales professionals for a range of industries and connect them with companies across the US."
+            />
+            <Reveal className="mt-10 divide-y divide-line border-y border-line">
+              {[
+                { label: "Hours", value: site.hours },
+                { label: "Email", value: site.email, href: `mailto:${site.email}` },
+                { label: "Phone", value: site.phone, href: site.phoneHref },
+              ].map((d) => (
+                <div key={d.label} className="flex items-baseline justify-between gap-6 py-5">
+                  <span className="font-[family-name:var(--font-heading)] italic text-body">{d.label}</span>
+                  {d.href ? (
+                    <a href={d.href} className="link-underline text-right text-lg text-ink">
+                      {d.value}
+                    </a>
+                  ) : (
+                    <span className="text-right text-lg text-ink">{d.value}</span>
+                  )}
+                </div>
+              ))}
+            </Reveal>
+            <Reveal className="mt-8">
+              <TextLink href={mapsLink}>Open in Google Maps</TextLink>
+            </Reveal>
           </div>
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-navy">Hours</h3>
-            <p className="mt-3 leading-relaxed text-body">{site.hours}</p>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-navy">Contact</h3>
-            <p className="mt-3 leading-relaxed text-body">
-              <a href={`mailto:${site.email}`} className="hover:underline">
-                {site.email}
-              </a>
-              <br />
-              <a href={site.phoneHref} className="hover:underline">
-                {site.phone}
-              </a>
-            </p>
-          </div>
+          <Reveal delay={120} className="h-full min-h-[360px]">
+            <LocationMap className="h-full" />
+          </Reveal>
         </div>
       </section>
 

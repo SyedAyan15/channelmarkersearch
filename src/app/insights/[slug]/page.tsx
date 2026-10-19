@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { CtaBand, DarkBanner } from "@/components/ui";
+import { CtaBand, PageBanner } from "@/components/ui";
 import { articles, getArticle } from "@/lib/insights";
 import { formatDate } from "@/lib/jobs";
 
@@ -34,11 +34,11 @@ export default async function ArticlePage({ params }: PageProps<"/insights/[slug
 
   return (
     <>
-      <DarkBanner
+      <PageBanner
         top={
           <Link
             href="/insights"
-            className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-sky hover:underline"
+            className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-navy hover:underline"
           >
             <ArrowLeft className="h-4 w-4" /> All insights
           </Link>

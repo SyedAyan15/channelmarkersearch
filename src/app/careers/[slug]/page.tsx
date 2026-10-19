@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { ApplyForm } from "@/components/forms/ApplyForm";
-import { DarkBanner } from "@/components/ui";
+import { PageBanner } from "@/components/ui";
 import { formatDate, getJob, jobs } from "@/lib/jobs";
 import { site } from "@/lib/site";
 
@@ -57,11 +57,11 @@ export default async function JobPage({ params }: PageProps<"/careers/[slug]">) 
 
   return (
     <>
-      <DarkBanner
+      <PageBanner
         top={
           <Link
             href="/careers"
-            className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-sky hover:underline"
+            className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-navy hover:underline"
           >
             <ArrowLeft className="h-4 w-4" /> All open positions
           </Link>

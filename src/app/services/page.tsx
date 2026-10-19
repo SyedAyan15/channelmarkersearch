@@ -44,7 +44,7 @@ export default function ServicesPage() {
         intro="We help companies build high-performing sales teams that hit quota and drive revenue, from high-growth startups to established enterprises."
       >
         <div className="mt-8">
-          <ButtonLink href="/contact" variant="sky">
+          <ButtonLink href="/contact" variant="primary">
             Request Sales Talent
           </ButtonLink>
         </div>

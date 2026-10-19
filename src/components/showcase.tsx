@@ -99,18 +99,12 @@ export function StickyProcess({ steps, heading }: { steps: Step[]; heading: Reac
       <div className="lg:sticky lg:top-32 lg:self-start">
         {heading}
         <div className="mt-10 hidden lg:block">
-          <p className="font-[family-name:var(--font-heading)] text-[7rem] font-semibold leading-none text-navy">
+          <p className="font-[family-name:var(--font-heading)] text-[7rem] font-normal leading-none text-navy">
             <span key={active} className="inline-block animate-hero-in">
               0{active + 1}
             </span>
             <span className="text-4xl text-body/40"> / 0{steps.length}</span>
           </p>
-          <div className="mt-6 h-1 w-full max-w-sm overflow-hidden rounded-full bg-line">
-            <div
-              className="h-full rounded-full bg-sky-dark transition-[width] duration-500 ease-out"
-              style={{ width: `${((active + 1) / steps.length) * 100}%` }}
-            />
-          </div>
         </div>
       </div>
 
@@ -124,7 +118,7 @@ export function StickyProcess({ steps, heading }: { steps: Step[]; heading: Reac
                 refs.current[i] = el;
               }}
               data-index={i}
-              className={`rounded-2xl border p-8 transition-all duration-500 sm:p-10 ${
+              className={`rounded-lg border p-8 transition-all duration-500 sm:p-10 ${
                 on
                   ? "border-navy bg-navy text-white shadow-2xl shadow-navy/25 lg:scale-[1.02]"
                   : "border-line bg-white text-ink"
@@ -134,7 +128,7 @@ export function StickyProcess({ steps, heading }: { steps: Step[]; heading: Reac
                 <span className={`text-sm font-semibold ${on ? "text-sky" : "text-sky-dark"}`}>Step {i + 1}</span>
                 <span className={`text-sm ${on ? "text-white/70" : "text-body"}`}>{s.time}</span>
               </div>
-              <h3 className="mt-4 text-3xl sm:text-4xl">{s.title}</h3>
+              <h3 className="mt-4 text-3xl font-normal sm:text-4xl">{s.title}</h3>
               <p className={`mt-4 text-lg leading-relaxed ${on ? "text-white/80" : "text-body"}`}>{s.body}</p>
             </li>
           );

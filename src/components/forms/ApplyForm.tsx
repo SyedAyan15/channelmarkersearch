@@ -10,7 +10,7 @@ export function ApplyForm({ position }: { position?: string }) {
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl border border-line bg-white p-10 text-center">
+      <div className="rounded-md border border-line bg-white p-10 text-center">
         <h3 className="text-2xl font-semibold text-ink">Application received</h3>
         <p className="mt-3 text-body">
           Thank you for applying. Our recruiters review every application personally and will contact you if
@@ -30,7 +30,7 @@ export function ApplyForm({ position }: { position?: string }) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-2xl border border-line bg-white p-6 sm:p-8">
+    <form onSubmit={onSubmit} className="rounded-md border border-line bg-white p-6 sm:p-8">
       <input type="hidden" name="position" value={position ?? "General application"} />
       <div className="grid gap-5 sm:grid-cols-2">
         <div>

@@ -34,6 +34,6 @@ export const inputClass =
 export const labelClass = "mb-1.5 block text-sm font-medium text-ink";
 
 export const submitClass =
-  "mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-navy px-6 py-4 text-[15px] font-semibold text-white transition hover:bg-navy-light disabled:opacity-70";
+  "mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md bg-navy px-6 py-4 text-[15px] font-medium text-white transition hover:bg-navy-light disabled:opacity-70";
 
 export const errorClass = "mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700";
