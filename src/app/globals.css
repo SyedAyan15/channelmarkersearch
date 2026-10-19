@@ -1,26 +1,259 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* Brand colours taken from the Channel Marker logo and current site */
+  --color-navy: #0b2a44;
+  --color-navy-dark: #071c2e;
+  --color-navy-light: #1d4a70;
+  --color-sky: #6cc2e8;
+  --color-sky-dark: #2f86b5;
+  --color-sky-light: #e9f5fb;
+  --color-ink: #10161d;
+  --color-body: #434b55;
+  --color-charcoal: #1b2229;
+  --color-cream: #f7f3ec;
+  --color-mist: #efe9df;
+  --color-line: #e3dcd0;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-serif), Georgia, "Times New Roman", serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --animate-word-in: word-in 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-hero-zoom: hero-zoom 18s ease-out both;
+  --animate-hero-in: hero-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-mark: mark 0.9s cubic-bezier(0.65, 0, 0.35, 1) both;
+  --animate-tick: tick 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-needle: needle 6s ease-in-out infinite;
+  --animate-float-y: float-y 5s ease-in-out infinite;
+
+  @keyframes word-in {
+    from { opacity: 0; transform: translateY(60%); filter: blur(4px); }
+    to { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+  @keyframes hero-zoom {
+    from { transform: scale(1.12); }
+    to { transform: scale(1); }
+  }
+  @keyframes mark {
+    from { background-size: 0% 40%; }
+    to { background-size: 100% 40%; }
+  }
+  @keyframes tick {
+    from { opacity: 0; transform: scale(0.4); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+  }
+  @keyframes needle {
+    0%, 100% { transform: rotate(-18deg); }
+    50% { transform: rotate(24deg); }
+  }
+  @keyframes float-y {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes hero-in {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-optical-sizing: auto;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-sky-dark);
+    outline-offset: 3px;
+  }
+}
+
+.container-x {
+  width: 100%;
+  max-width: 74rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+@media (min-width: 768px) {
+  .container-x { padding-inline: 2rem; }
+}
+
+/* Scroll reveal: content is only hidden once JS has loaded (html.js), so it
+   stays visible without JavaScript. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    /* reveal timing for opacity/transform; hover effects (translate, shadow,
+       border, background) keep their own fast, undelayed transitions */
+    transition-property: opacity, transform, translate, box-shadow, border-color, background-color;
+    transition-duration: 0.7s, 0.7s, 0.3s, 0.3s, 0.3s, 0.3s;
+    transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition-delay: var(--reveal-delay, 0ms), var(--reveal-delay, 0ms), 0s, 0s, 0s, 0s;
+  }
+  html.js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Highlighter-marker emphasis, e.g. <em className="hl">top talent</em> */
+.hl {
+  font-style: italic;
+  font-weight: 600;
+  background-image: linear-gradient(var(--color-sky), var(--color-sky));
+  background-repeat: no-repeat;
+  background-position: 0 88%;
+  background-size: 100% 40%;
+  padding-inline: 0.06em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* draws in on page load (hero) */
+  .hl-draw {
+    animation: mark 0.9s cubic-bezier(0.65, 0, 0.35, 1) both;
+    animation-delay: var(--mark-delay, 400ms);
+  }
+  /* draws in when its Reveal parent scrolls into view */
+  html.js .reveal .hl {
+    background-size: 0% 40%;
+    transition: background-size 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.35s;
+  }
+  html.js .reveal.is-visible .hl {
+    background-size: 100% 40%;
+  }
+}
+
+/* Bars that grow to --w when their Reveal parent scrolls into view */
+.grow-bar { width: var(--w); }
+@media (prefers-reduced-motion: no-preference) {
+  html.js .reveal .grow-bar {
+    width: 0;
+    transition: width 1.1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition-delay: var(--bar-delay, 0ms);
+  }
+  html.js .reveal.is-visible .grow-bar { width: var(--w); }
+}
+
+/* Solid sky block highlight for dark backgrounds (navy text on sky) */
+.hl-block {
+  font-style: italic;
+  color: var(--color-navy);
+  background-image: linear-gradient(var(--color-sky), var(--color-sky));
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+  background-size: 100% 88%;
+  padding-inline: 0.12em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+@keyframes block-draw {
+  from { background-size: 0% 88%; color: #fff; }
+  60% { color: #fff; }
+  to { background-size: 100% 88%; color: var(--color-navy); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hl-block { animation: block-draw 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.5s both; }
+}
+
+/* Marker highlights on navy banners use the solid block style */
+.on-dark .hl {
+  color: var(--color-navy);
+  background-position: 0 50%;
+  background-size: 100% 88%;
+  padding-inline: 0.12em;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .on-dark .hl-draw { animation: block-draw 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.4s both; }
+}
+
+/* Animated underline for text links */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+}
+.link-underline:hover,
+.link-underline[aria-current="page"] {
+  background-size: 100% 2px;
+}
+
+/* Range inputs for the commission calculator */
+input[type="range"].range {
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--color-navy) var(--fill, 50%), var(--color-line) var(--fill, 50%));
+  outline-offset: 6px;
+}
+input[type="range"].range::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #fff;
+  border: 3px solid var(--color-navy);
+  box-shadow: 0 2px 8px rgb(11 42 68 / 0.25);
+  cursor: grab;
+  transition: transform 0.15s;
+}
+input[type="range"].range::-webkit-slider-thumb:active { transform: scale(1.15); }
+input[type="range"].range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #fff;
+  border: 3px solid var(--color-navy);
+  cursor: grab;
+}
+
+.prose-article h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-ink);
+}
+.prose-article p {
+  margin-bottom: 1.1rem;
+  line-height: 1.8;
+  color: var(--color-body);
+}
+.prose-article ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.prose-article li {
+  margin-bottom: 0.4rem;
+  line-height: 1.7;
+  color: var(--color-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
